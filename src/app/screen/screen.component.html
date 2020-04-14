@@ -1,0 +1,64 @@
+<p>screen works!</p>
+<p-button (onClick)="addColumn($event)">Add Column</p-button>
+<p-button (onClick)="alterColumn($event)">Alter Column</p-button>
+<p-button (onClick)="deleteColumn($event)">Delete Column</p-button>
+
+
+<p-button (onClick)="createTable($event)">Add Table</p-button>
+
+<ng-template #vf></ng-template>
+
+<!-- <app-table
+  [tableData]="this.data"
+  [columnNames]="this.columns"
+  [height]="this.height"
+></app-table> -->
+
+<p-dialog [(visible)]="addColumnDialogDisplay" [style]="{ width: '500px' }">
+  <p-header>
+    Add Column
+  </p-header>
+  <form [formGroup]="addColumnForm">
+    <div class="form-group">
+      <label for="name">Name</label>
+      <input
+        class="form-control"
+        name="name"
+        id="name"
+        type="text"
+        formControlName="name"
+      />
+      <div
+        class="form-control-feedback"
+        *ngIf="
+          getAddColumnControl('name').errors &&
+          (getAddColumnControl('name').dirty ||
+            getAddColumnControl('name').touched)
+        "
+      >
+        <p *ngIf="getAddColumnControl('name').errors.required">
+          Name is required
+        </p>
+      </div>
+    </div>
+  </form>
+  <p-footer>
+    <div class="btn-toolbar">
+      <button
+        class="btn btn-sm btn-success"
+        type="button"
+        [disabled]="addColumnForm.invalid"
+        (click)="saveAddColumn($event)"
+      >
+        <i class="pi pi-save">Save</i>
+      </button>
+      <button
+        class="btn btn-sm btn-default"
+        type="button"
+        (click)="cancelAddColumn($event)"
+      >
+        <i class="pi pi-times">Cancel</i>
+      </button>
+    </div>
+  </p-footer>
+</p-dialog>
